@@ -1,0 +1,53 @@
+[project]
+name = "indexa-mcp"
+version = "0.1.0"
+description = "Read-only MCP server for Indexa Capital (local, stdio)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["mcp", "indexa", "indexa-capital", "investing", "read-only"]
+classifiers = ["Programming Language :: Python :: 3", "Topic :: Office/Business :: Financial :: Investment"]
+authors = [{ name = "gmerinojimenez", email = "gmerinojimenez@gmail.com" }]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27",
+    "mcp>=1.9,<2",
+]
+
+[project.urls]
+Homepage = "https://github.com/gmerinojimenez/indexa-mcp"
+Issues = "https://github.com/gmerinojimenez/indexa-mcp/issues"
+
+[project.scripts]
+indexa-mcp = "indexa_mcp.server:main"
+
+[build-system]
+requires = ["uv_build>=0.11.25,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "pip-audit>=2.10.1",
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1.post1",
+    "ruff>=0.17.4",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S105", "E501"]
+
+[tool.mypy]
+strict = true
+files = ["src"]
